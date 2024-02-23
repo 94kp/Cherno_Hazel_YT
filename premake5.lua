@@ -1,4 +1,4 @@
-workspace "Hazel"
+workspace "Cherno_Hazel"
 	architecture "x64"
 	
 	configurations
@@ -24,9 +24,9 @@ project "Cherno_Hazel"
 		"%{prj.name}/src/**.cpp",
 	}
 
-	include 
+	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include;"
+		"%{prj.name}/vendor/spdlog/include"
 	}
 
 	filter "system:windows"
@@ -43,20 +43,20 @@ project "Cherno_Hazel"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 
 	filter "configurations:Debug"
-		define "HZ_DEBUG"
+		defines "HZ_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
-		define "HZ_RELEASE"
+		defines "HZ_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
-		define "HZ_DIST"
+		defines "HZ_DIST"
 		optimize "On"
 
 
@@ -74,10 +74,10 @@ project "Sandbox"
 		"%{prj.name}/src/**.cpp",
 	}
 
-	include 
+	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
-		"Hazel/src"
+		"Cherno_Hazel/vendor/spdlog/include",
+		"Cherno_Hazel/src"
 	}
 
 	links
@@ -96,13 +96,13 @@ project "Sandbox"
 		}
 
 	filter "configurations:Debug"
-		define "HZ_DEBUG"
+		defines "HZ_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
-		define "HZ_RELEASE"
+		defines "HZ_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
-		define "HZ_DIST"
+		defines "HZ_DIST"
 		optimize "On"
